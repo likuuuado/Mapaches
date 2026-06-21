@@ -2,13 +2,24 @@ using UnityEngine;
 
 public class PlayerFC : MonoBehaviour
 {
+    [SerializeField] GameObject enemy;
+    [SerializeField] GameObject graphics;
+
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+
+
 
     Rigidbody2D rb;
 
     bool isGrounded = true;
     bool isCrouching = false;
+    bool facingRight;
+    
+
+    float moveInput;
+    bool jump;
+    bool attack;
 
     void Start()
     {
@@ -17,49 +28,49 @@ public class PlayerFC : MonoBehaviour
 
     void Update()
     {
+        ReadInput();
+
+        UpdateFacing();
+
         HandleMovement();
     }
 
+    
+
+   
+
+    #region moviento e inputs
     void HandleMovement()
     {
-        // Movimiento horizontal
-        int direction = 0;
-
-        if (Input.GetKey(KeyCode.A))
-            direction = -1;
-
-        if (Input.GetKey(KeyCode.D))
-            direction = 1;
-
-        
-        isCrouching = Input.GetKey(KeyCode.S);
-
-       
-        if (isCrouching)
-            direction = 0;
-
-        rb.linearVelocity = new Vector2(
-            direction * moveSpeed,
+        rb.linearVelocity =
+        new Vector2(
+            moveInput * moveSpeed,
             rb.linearVelocity.y
         );
 
-        // Salto
-        if (
-            Input.GetKeyDown(KeyCode.Space)
-            && isGrounded
-            && !isCrouching
-        )
+        if(jump && isGrounded)
         {
             rb.linearVelocity =
-                new Vector2(
-                    rb.linearVelocity.x,
-                    jumpForce
-                );
-
+            new Vector2(
+            rb.linearVelocity.x,
+            jumpForce
+            );
             isGrounded = false;
         }
     }
 
+    void ReadInput()
+    {
+        moveInput = Input.GetAxisRaw("Horizontal");
+
+        jump = Input.GetKeyDown(KeyCode.Space);
+
+        attack = Input.GetKeyDown(KeyCode.J);
+    }
+    #endregion
+
+
+    #region helpers
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Floor"))
@@ -67,4 +78,22 @@ public class PlayerFC : MonoBehaviour
             isGrounded = true;
         }
     }
+
+    void UpdateFacing()
+    {
+        facingRight =
+        enemy.transform.position.x >
+        transform.position.x;
+
+        graphics.transform.localScale =
+        new Vector3(
+            facingRight ? 1 : -1,
+            1,
+            1
+        );
+    }
+    #endregion
+
+
+
 }
