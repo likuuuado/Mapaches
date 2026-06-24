@@ -7,7 +7,7 @@ public class PlayerFC : MonoBehaviour
 
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-
+    public Animator animator;
 
 
     Rigidbody2D rb;
@@ -16,7 +16,7 @@ public class PlayerFC : MonoBehaviour
     bool isCrouching = false;
     bool facingRight;
     
-
+    float timer;
     float moveInput;
     bool jump;
     bool attack;
@@ -33,9 +33,9 @@ public class PlayerFC : MonoBehaviour
         UpdateFacing();
 
         HandleMovement();
-    }
 
-    
+        HandleAttacks();
+    }
 
    
 
@@ -56,6 +56,21 @@ public class PlayerFC : MonoBehaviour
             jumpForce
             );
             isGrounded = false;
+            animator.SetBool("IsJumping", true);
+        }
+    }
+
+    void HandleAttacks()
+    {
+
+        if (attack)
+        {
+            animator.SetTrigger("Attack1");
+            /*timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                animator.Set
+            }*/
         }
     }
 
@@ -66,6 +81,10 @@ public class PlayerFC : MonoBehaviour
         jump = Input.GetKeyDown(KeyCode.Space);
 
         attack = Input.GetKeyDown(KeyCode.J);
+
+        //isCrouching = Input.GetKeyDown(KeyCode.Ctrl);
+
+        //ultimate = Input.GetKeyDown(KeyCode.K);
     }
     #endregion
 
@@ -76,6 +95,7 @@ public class PlayerFC : MonoBehaviour
         if (collision.gameObject.CompareTag("Floor"))
         {
             isGrounded = true;
+            animator.SetBool("IsJumping", false);
         }
     }
 
