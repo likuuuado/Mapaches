@@ -41,7 +41,7 @@ public class Richie : MonoBehaviour
     {
         float currentSpeed = isHidden ? stealthSpeed : normalSpeed;
         moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        rb.velocity = moveInput * currentSpeed;
+        rb.linearVelocity = moveInput * currentSpeed;
     }
 
     void HandleStealth()
@@ -59,17 +59,17 @@ public class Richie : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Bate"))
-        {
-            tieneBate = true;
-            Destroy(other.gameObject);
-            Debug.Log("Richie consiguió el bate, ahora puede ganar la pelea.");
-        }
+            {
+                tieneBate = true;
+                PlayerPrefs.SetInt("RichieTieneBate", 1);
+                Destroy(other.gameObject);
+                Debug.Log("Richie consiguió el bate.");
+                SceneManager.LoadScene("NivelExploracion");
+            }
         if (other.CompareTag("Tortuga"))
-        {
-            if (tieneBate)
-                Controlador.instance.Victory(); // gana con bate
-            else
-                Controlador.instance.GameOver(); // pierde sin bate
-        }
+            {
+                Debug.Log("Richie se enfrenta a la Tortuga");
+                SceneManager.LoadScene("BossFight");
+            }
     }
 }

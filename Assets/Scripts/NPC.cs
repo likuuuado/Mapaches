@@ -13,7 +13,9 @@ public class NPC : MonoBehaviour
             {
                 "Richie, la Tortuga es muy fuerte.",
                 "Necesitás un bate para poder derrotarla.",
-                "Busca en el campamento, pero cuidado con los humanos."
+                "Busca en el campamento.",
+                "atars del arbusto",
+                "pero cuidado con los humanos."
             };
 
             gestor.IniciarDialogo("Aldeano", lineas);
