@@ -24,6 +24,7 @@ public class TortugaIA : MonoBehaviour
         if (distance > attackRange)
         {
             MoveTowardsPlayer();
+            //Debug.Log("Distancia: " + distance);
         }
         else
         {
@@ -54,6 +55,7 @@ public class TortugaIA : MonoBehaviour
 
     void ChooseAttack()
     {
+        //Debug.Log("Intentando atacar");
         animator.SetBool("IsWalking", false);
 
         int attack = Random.Range(0, 3);

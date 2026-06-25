@@ -13,13 +13,16 @@ public class PlayerFC : MonoBehaviour
     Rigidbody2D rb;
 
     bool isGrounded = true;
-    bool isCrouching = false;
+    bool isCruching = false;
     bool facingRight;
+    bool canCombo;
+    bool isAttacking;
     
     float timer;
     float moveInput;
     bool jump;
     bool attack;
+    bool ultimate;
 
     void Start()
     {
@@ -58,21 +61,36 @@ public class PlayerFC : MonoBehaviour
             isGrounded = false;
             animator.SetBool("IsJumping", true);
         }
+
+        /*if(isCruching)
+        {
+            animator.SetBool("IsCruching",true);
+        }*/
     }
 
     void HandleAttacks()
+{
+    if (attack)
     {
-
-        if (attack)
+        if (!isAttacking)
         {
+            isAttacking = true;
             animator.SetTrigger("Attack1");
-            /*timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                animator.Set
-            }*/
         }
+        else if (canCombo)
+        {
+            canCombo = false;
+            animator.SetTrigger("Attack2");
+        }
+        
+        EndAttack();
     }
+
+    if (ultimate)
+    {
+        animator.SetTrigger("UseUltimate");
+    }
+}
 
     void ReadInput()
     {
@@ -82,9 +100,25 @@ public class PlayerFC : MonoBehaviour
 
         attack = Input.GetKeyDown(KeyCode.J);
 
-        //isCrouching = Input.GetKeyDown(KeyCode.Ctrl);
+        isCruching = Input.GetKeyDown(KeyCode.C);
 
-        //ultimate = Input.GetKeyDown(KeyCode.K);
+        ultimate = Input.GetKeyDown(KeyCode.K);
+    }
+
+    public void EnableCombo()
+    {
+        canCombo = true;
+    }
+
+    public void DisableCombo()
+    {
+        canCombo = false;
+    }
+
+    public void EndAttack()
+    {
+    isAttacking = false;
+    canCombo = false;
     }
     #endregion
 
