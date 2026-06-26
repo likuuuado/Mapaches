@@ -12,8 +12,8 @@ public class Humano : MonoBehaviour
     public LayerMask playerLayer;
     private Transform richie;
 
-    [Header("Estados de Alerta")]
     public enum AlertState { Oculto, Alerta, Visto }
+    [Header("Estados de Alerta")]
     public AlertState currentState = AlertState.Oculto;
 
     void Start()
