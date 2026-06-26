@@ -359,9 +359,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 958659190}
   graphics: {fileID: 359231234}
+  animator: {fileID: 359231238}
+  attackPoint: {fileID: 359231235}
   moveSpeed: 5
   jumpForce: 10
-  animator: {fileID: 359231238}
+  hitRadius: 1
+  damage: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &359231238
 Animator:
   serializedVersion: 7
@@ -737,7 +743,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.44, y: 7.03}
+    oldSize: {x: 5.61, y: 6.84}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -759,9 +765,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 359231235}
   animator: {fileID: 958659193}
+  attackPoint: {fileID: 958659191}
   moveSpeed: 3
   attackRange: 5
   decisionCooldown: 1.5
+  hitRadius: 1
+  damage: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!61 &958659198
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -800,7 +812,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.44, y: 7.03}
+    oldSize: {x: 5.61, y: 6.84}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
