@@ -1,18 +1,18 @@
 using UnityEngine;
 public class Humano : MonoBehaviour
 {
-    [Header("Patrulla")]
+    
     public Transform[] patrolPoints;
     public float walkSpeed = 2f;
     private int currentPoint = 0;
 
-    [Header("Detección")]
+   
     public float visionRange = 5f;
     public float visionAngle = 45f;
     public LayerMask playerLayer;
     private Transform richie;
 
-    [Header("Estados de Alerta")]
+   
     public enum AlertState { Oculto, Alerta, Visto }
     public AlertState currentState = AlertState.Oculto;
 
