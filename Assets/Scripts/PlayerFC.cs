@@ -16,7 +16,10 @@ public class PlayerFC : MonoBehaviour
     [SerializeField] float hitRadius = 1f;
     [SerializeField] int damage = 10;
     [SerializeField] LayerMask enemyLayer;
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 6b4887c (Unión de ArmadoPlayer con autista de mierda)
 
     Rigidbody2D rb;
 
@@ -192,5 +195,8 @@ public class PlayerFC : MonoBehaviour
     }*/
 
     #endregion
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 6b4887c (Unión de ArmadoPlayer con autista de mierda)
 }
