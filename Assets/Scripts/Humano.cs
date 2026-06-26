@@ -14,6 +14,7 @@ public class Humano : MonoBehaviour
 
    
     public enum AlertState { Oculto, Alerta, Visto }
+    [Header("Estados de Alerta")]
     public AlertState currentState = AlertState.Oculto;
 
     void Start()

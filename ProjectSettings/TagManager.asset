@@ -5,14 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - Floor
-  - Tortuga
-  - Jugador
-  - Bate
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
   - 

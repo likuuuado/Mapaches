@@ -2,65 +2,87 @@ using UnityEngine;
 
 public class TortugaIA : MonoBehaviour
 {
-    public Transform player;
-    public Animator animator;
+    [Header("References")]
+    [SerializeField] Transform player;
+    [SerializeField] Animator animator;
+    [SerializeField] Transform attackPoint;
 
-    public float moveSpeed = 3f;
-    public float attackRange = 4f;
+    [Header("Movement")]
+    [SerializeField] float moveSpeed = 3f;
+    [SerializeField] float attackRange = 4f;
+    [SerializeField] float decisionCooldown = 1;
 
+    float timer;
 
-    public float decisionCooldown = 1.5f;
+    [Header("Combat")]
+    [SerializeField] float hitRadius = 1f;
+    [SerializeField] int damage = 10;
+    [SerializeField] LayerMask enemyLayer;
 
-    private float timer;
-    private bool isAttacking;
+    bool isAttacking;
 
     void Update()
     {
+        Debug.Log(isAttacking);
         if (player == null || isAttacking)
             return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        float distance = Vector2.Distance(
+            transform.position, 
+            player.position
+        );
 
         if (distance > attackRange)
         {
             MoveTowardsPlayer();
+            //Debug.Log("Distancia: " + distance);
         }
         else
         {
+            animator.SetBool("IsWalking", false);
+
             timer -= Time.deltaTime;
 
             if (timer <= 0)
             {
                 ChooseAttack();
                 timer = decisionCooldown;
-                EndAttack();
             }
         }
     }
 
+    #region Movement
+
     void MoveTowardsPlayer()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
+        //Debug.Log("Intento acercarme");
+        Vector2 direction = 
+            (player.position - transform.position).normalized;
 
-        transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
+        transform.position += 
+            (Vector3)direction * 
+            moveSpeed * 
+            Time.deltaTime;
 
         animator.SetBool("IsWalking", true);
 
         if (direction.x < 0)
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(1,1,1);
         else
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-1,1,1);
     }
+
+    #endregion
+
+    #region Combat
 
     void ChooseAttack()
     {
-        animator.SetBool("IsWalking", false);
-
-        int attack = Random.Range(0, 3);
+        //Debug.Log("Intentando atacar");
 
         isAttacking = true;
 
-        switch (attack)
+        switch (Random.Range(0, 3))
         {
             case 0:
                 animator.SetTrigger("Attack");
@@ -72,13 +94,40 @@ public class TortugaIA : MonoBehaviour
 
             case 2:
                 animator.SetTrigger("Embestida");
+                animator.SetTrigger("Embestida");
                 break;
         }
     }
 
-    // Llamado desde un Animation Event
+    public void DealDamage()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(
+            attackPoint.position,
+            hitRadius,
+            enemyLayer
+        );
+
+        if (hit == null)
+            return;
+
+        Health health = hit.GetComponent<Health>();
+
+        if (health != null)
+        {
+            health.TakeDamage(damage);
+        }
+    }
+
+    #endregion
+
+    #region Animation Events
+
     public void EndAttack()
     {
+        Debug.Log("Fin del ataque");
         isAttacking = false;
     }
+
+    #endregion
+
 }
