@@ -403,6 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db48b30f6274014491cc90242b3b6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gestor: {fileID: 0}
 --- !u!61 &311092400
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -648,6 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d746796e308770641a90483b9bea9529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  videoPlayer: {fileID: 0}
 --- !u!61 &702446574
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1461,6 +1463,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75628ce02dfdddd418e5739dad1a32b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textoNombre: {fileID: 0}
+  textoDialogo: {fileID: 0}
+  panelDialogo: {fileID: 0}
 --- !u!224 &1629570906
 RectTransform:
   m_ObjectHideFlags: 0

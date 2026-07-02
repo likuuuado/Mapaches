@@ -8,9 +8,14 @@ public class CinematicaVideo : MonoBehaviour
 
     void Start()
     {
+        videoPlayer.Prepare();
         videoPlayer.loopPointReached += OnVideoEnd;
     }
 
+    void OnVideoPrepared(VideoPlayer vp)
+    {
+        vp.Play();
+    }
     void OnVideoEnd(VideoPlayer vp)
     {
         SceneManager.LoadScene("NivelExploracion"); // carga la escena de exploración
