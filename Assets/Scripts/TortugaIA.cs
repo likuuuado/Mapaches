@@ -23,7 +23,7 @@ public class TortugaIA : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isAttacking);
+        //Debug.Log(isAttacking);
         if (player == null || isAttacking)
             return;
 
@@ -94,7 +94,6 @@ public class TortugaIA : MonoBehaviour
 
             case 2:
                 animator.SetTrigger("Embestida");
-                animator.SetTrigger("Embestida");
                 break;
         }
     }
@@ -110,7 +109,7 @@ public class TortugaIA : MonoBehaviour
         if (hit == null)
             return;
 
-        Health health = hit.GetComponent<Health>();
+        Health health = player.GetComponent<Health>();
 
         if (health != null)
         {
@@ -124,7 +123,7 @@ public class TortugaIA : MonoBehaviour
 
     public void EndAttack()
     {
-        Debug.Log("Fin del ataque");
+        //Debug.Log("Fin del ataque");
         isAttacking = false;
     }
 

@@ -24,14 +24,14 @@ public class PlayerFC : MonoBehaviour
     bool facingRight;
     bool canCombo;
     bool isAttacking;
-    bool isCruching;
+    bool isCrouching;
 
     float moveInput;
     bool jump;
     bool attack;
     bool ultimate;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
@@ -58,7 +58,7 @@ public class PlayerFC : MonoBehaviour
 
         attack = Input.GetKeyDown(KeyCode.J);
 
-        isCruching = Input.GetKeyDown(KeyCode.C);
+        isCrouching = Input.GetKey(KeyCode.C);
 
         ultimate = Input.GetKeyDown(KeyCode.K);
     }
@@ -81,6 +81,12 @@ public class PlayerFC : MonoBehaviour
             animator.SetBool("IsJumping", true);
         }
 
+        if (isCrouching && isGrounded)
+        {
+            animator.SetBool("IsCrouching", isCrouching);
+        }
+        
+
     }
 
     #endregion
@@ -89,23 +95,31 @@ public class PlayerFC : MonoBehaviour
 
     void HandleAttacks()
     {
+        Anger anger = GetComponent<Anger>();
         if (attack)
         {
             if(!isAttacking)
             {
                 isAttacking = true;
                 animator.SetTrigger("Attack1");
+                anger.AddAnger(2);
             }
             else if (canCombo)
             {
                 canCombo = false;
                 animator.SetTrigger("Attack2");
+                anger.AddAnger(5);
             }
         }
 
         if (ultimate)
         {
-            animator.SetTrigger("UseUltimate");
+            if (anger.IsFull())
+            {
+                animator.SetTrigger("UseUltimate");
+
+                anger.ResetAnger();
+            }
         }
     }
 
@@ -119,8 +133,8 @@ public class PlayerFC : MonoBehaviour
 
         if (hit == null)
             return;
-        
-        Health health = hit.GetComponent<Health>();
+
+        Health health = enemy.GetComponent<Health>();
 
         if (health != null)
         {
